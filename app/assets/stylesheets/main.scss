@@ -1,0 +1,7 @@
+// mixins, variables etc
+@import "base/globals.scss";
+// utility scss
+@import "base/util.scss";
+// styles for differnet views
+@import "styles/static.scss";
+@import "styles/game.scss";

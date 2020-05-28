@@ -1,3 +1,10 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get 'game/new'
+  get 'game/update'
+  get 'game/show'
+  get 'game/create'
+  get 'game/update'
+  get 'game/show'
+  root :to => 'static#index'
+  get 'static/show'
 end

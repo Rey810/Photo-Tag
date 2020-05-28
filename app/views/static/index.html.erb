@@ -1,0 +1,11 @@
+<h1>Photo Tag</h1>
+<p>Find me in app/views/static/index.html.erb</p>
+<p>Here in will be the images which shall be displayed in lovely manner as follows</p>
+
+<section class="grid-1x2">
+  <img src='/images/1.jpg'alt="I am the big beautiful image.">
+  <aside>
+    <%= button_to "Play", game_show_path, method: :get, params: { img_id: 1 } %>
+    <button type="submit">View Leaderboard</button>
+  </aside>
+</section>
