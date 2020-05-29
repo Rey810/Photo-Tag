@@ -1,0 +1,14 @@
+<h1>Photo Tag</h1>
+<p>Find me in app/views/static/index.html.erb</p>
+<p>
+  Here in will be the images which shall be displayed in lovely manner as
+  follows
+</p>
+
+<section class="grid-1x2">
+  <% @puzzles.each do |puzzle| %>
+  <h2><%= puzzle.name %></h2>
+  <%= image_tag "/images/#{puzzle.image_url}", alt: "Rick's Lounge Image" %>
+  <%= link_to "Play", puzzle_path(puzzle.id) %>
+  <% end %>
+</section>

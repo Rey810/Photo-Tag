@@ -1,7 +1,5 @@
 class StaticController < ApplicationController
-  def index
-  end
-
-  def show
+  def home
+    @puzzles = Puzzle.all
   end
 end

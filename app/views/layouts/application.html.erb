@@ -9,7 +9,7 @@
     <%= javascript_include_tag 'application', async: Rails.env.production?,'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class=<%= yield(:bodyClass) %>>
     <%= yield %>
   </body>
 </html>
