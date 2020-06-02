@@ -1,6 +1,8 @@
 let targetBox;
 let options;
 let img;
+let characterDataUrl = "http://localhost:3000/puzzles";
+let characterData;
 
 // Rails uses turbolinks: intercepts link clicks and makes an ajax request. Replaces body with new content
 // This event is called turbolinks:load
@@ -27,6 +29,8 @@ document.addEventListener("turbolinks:load", () => {
       popUp({ X: e.pageX, Y: e.pageY });
     });
 
+    getCharacterPositions();
+
     // //start timer
     // let currTime = 0;
     // let timer = setInterval(() => {
@@ -36,6 +40,14 @@ document.addEventListener("turbolinks:load", () => {
     // check chosen character and x, y points before sending to server
   }
 });
+
+async function getCharacterPositions() {
+  let puzzleID = document.querySelector("h1").dataset.id;
+  fetch(`${characterDataUrl}/${puzzleID}.json`)
+    .then((res) => res.json())
+    .then((data) => (characterData = data))
+    .catch((err) => console.log(err));
+}
 
 function checkSelection({
   topLeftX = 0,
@@ -61,6 +73,28 @@ function checkSelection({
   console.log(charName);
 
   // get coordinates from database
+  // characterData contains an array of character objects
+  // if the x co-ordinate of selected character is between the rightX and leftX AND the y-coordinate is between the topY and bottomY, alert that it's been found!
+  checkName(charName);
+
+  function checkName(chosenName) {
+    characterData.forEach((obj) => {
+      console.log("charName", obj.name);
+      obj.name === chosenName ? checkPoints(selectedArea, obj) : false;
+    });
+  }
+
+  function checkPoints(chosenArea, character) {
+    console.log("inside checkPoints");
+    console.table(chosenArea);
+    console.table(character);
+    // compare the x points
+    const { topLeftX, topRightX } = { ...chosenArea };
+    const { x_position, y_position } = { ...character };
+    if (x_position > topLeftX && x_position < topRightX) {
+      alert(`You found ${character.name}!`);
+    }
+  }
 }
 
 // hides and shows target box and options

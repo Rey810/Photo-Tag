@@ -1,6 +1,7 @@
 <% content_for :title, "Game" %> 
 <% content_for :bodyClass, "show-puzzle" %>
 
+<h1 class="puzzle-name" data-name="<%= @puzzle.name %>" data-id="<%= @puzzle.id %>"><%= @puzzle.name %></h1>
 <%= image_tag "/images/#{@puzzle.image_url}", class: "full-screen center-horizon" %>
 
 <div class="target-box hidden"></div>
