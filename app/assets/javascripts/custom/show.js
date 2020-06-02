@@ -27,12 +27,12 @@ document.addEventListener("turbolinks:load", () => {
       popUp({ X: e.pageX, Y: e.pageY });
     });
 
-    //start timer
-    let currTime = 0;
-    let timer = setInterval(() => {
-      currTime += 1;
-      console.log(currTime);
-    }, 1000);
+    // //start timer
+    // let currTime = 0;
+    // let timer = setInterval(() => {
+    //   currTime += 1;
+    //   console.log(currTime);
+    // }, 1000);
     // check chosen character and x, y points before sending to server
   }
 });
@@ -78,6 +78,7 @@ function popUp({ X = 0, Y = 0 }) {
 // positions the targeting box
 function positionBox(X, Y) {
   console.group("box");
+  console.log("centerX", X, "centerY", Y);
   console.log(
     "bottom right",
     X + targetBox.clientWidth / 2,
