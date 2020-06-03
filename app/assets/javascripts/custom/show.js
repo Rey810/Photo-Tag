@@ -3,6 +3,7 @@ let options;
 let img;
 let characterDataUrl = "http://localhost:3000/puzzles";
 let characterData;
+let characterFoundStatus;
 
 // Rails uses turbolinks: intercepts link clicks and makes an ajax request. Replaces body with new content
 // This event is called turbolinks:load
@@ -45,7 +46,9 @@ async function getCharacterPositions() {
   let puzzleID = document.querySelector("h1").dataset.id;
   fetch(`${characterDataUrl}/${puzzleID}.json`)
     .then((res) => res.json())
-    .then((data) => (characterData = data))
+    .then((data) => {
+      characterData = data.puzzle_characters;
+    })
     .catch((err) => console.log(err));
 }
 
@@ -69,32 +72,73 @@ function checkSelection({
     bottomRightX: parseInt(topLeftX) + boxWidth,
     bottomRightY: parseInt(topLeftY) + boxHeight,
   };
-  console.table(selectedArea);
-  console.log(charName);
 
-  // get coordinates from database
-  // characterData contains an array of character objects
-  // if the x co-ordinate of selected character is between the rightX and leftX AND the y-coordinate is between the topY and bottomY, alert that it's been found!
-  checkName(charName);
+  checkSelection(charName);
 
-  function checkName(chosenName) {
-    characterData.forEach((obj) => {
-      console.log("charName", obj.name);
-      obj.name === chosenName ? checkPoints(selectedArea, obj) : false;
+  // if the name is found (which it always will be) check the selected points
+  function checkSelection(chosenName) {
+    characterData.forEach((character) => {
+      character.name === chosenName
+        ? checkPoints(selectedArea, character)
+        : false;
     });
   }
 
+  // compares the selected points with the characters x and y position
   function checkPoints(chosenArea, character) {
-    console.log("inside checkPoints");
-    console.table(chosenArea);
-    console.table(character);
-    // compare the x points
-    const { topLeftX, topRightX } = { ...chosenArea };
-    const { x_position, y_position } = { ...character };
-    if (x_position > topLeftX && x_position < topRightX) {
-      alert(`You found ${character.name}!`);
+    const { topLeftX, topRightX, topLeftY, bottomLeftY } = { ...chosenArea };
+    const { x_position, y_position, name } = { ...character };
+    console.log("x1", topLeftX, "x2", topRightX, "morty x", x_position);
+    // check if the selected points match the character position
+    if (
+      x_position > topLeftX &&
+      x_position < topRightX &&
+      y_position < bottomLeftY &&
+      y_position > topLeftY
+    ) {
+      updateFoundStatus(name);
+      // hide box
+      togglePopUp();
+      // yay!
+      displayCharacterFound(name);
+      // runs endGame() if all characters are found
+      checkGameOver();
+    } else {
+      // toggle the box and display a "Get your head out of your ass, Morty!"
+      togglePopUp();
     }
   }
+}
+
+// run each time a button is clicked
+function checkGameOver() {
+  if (characterData.every((character) => character.found === true)) endGame();
+}
+
+// stop the timer, send the score through and pop up the next modal
+function endGame() {
+  let finalTime = stopTimer();
+  sendScore(finalTime);
+}
+
+function updateFoundStatus(characterName) {
+  // changes the characters found status to true
+  characterData.forEach((character) => {
+    if (character.name === characterName) {
+      character.found = true;
+    }
+  });
+}
+// a message with a timeout showing success!
+function displayCharacterFound(characterName) {
+  let name = characterName;
+  let successDiv = document.createElement("div");
+  successDiv.textContent = `Yay! You found ${name}!`;
+  successDiv.classList.add("showSuccess");
+  document.body.appendChild(successDiv);
+  setTimeout(() => {
+    document.body.removeChild(successDiv);
+  }, 2000);
 }
 
 // hides and shows target box and options

@@ -2,11 +2,12 @@
 <% content_for :bodyClass, "show-puzzle" %>
 
 <h1 class="puzzle-name" data-name="<%= @puzzle.name %>" data-id="<%= @puzzle.id %>"><%= @puzzle.name %></h1>
-<%= image_tag "/images/#{@puzzle.image_url}", class: "full-screen center-horizon" %>
+<%= image_tag "/images/#{@puzzle.image_url}", class: "lrg-image center-horizon" %>
 
 <div class="target-box hidden"></div>
 <div class="options hidden">
 <ul>
 <li><button type="submit" value="Morty's Face">Morty's Face</button></li>
+<li><button type="submit" value="Baby's Face">Baby's Face</button></li>
 </ul>
 </div>
