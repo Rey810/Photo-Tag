@@ -1,13 +1,35 @@
-<% content_for :title, "Game" %> 
-<% content_for :bodyClass, "show-puzzle" %>
+<% content_for :title, "Game" %> <% content_for :bodyClass, "show-puzzle" %>
 
-<h1 class="puzzle-name" data-name="<%= @puzzle.name %>" data-id="<%= @puzzle.id %>"><%= @puzzle.name %></h1>
-<%= image_tag "/images/#{@puzzle.image_url}", class: "lrg-image center-horizon" %>
+<h1
+  class="puzzle-name"
+  data-name="<%= @puzzle.name %>"
+  data-id="<%= @puzzle.id %>"
+>
+  <%= @puzzle.name %>
+</h1>
+<h2>Time Elapsed: <span id="time"></span></h2>
+<%= image_tag "/images/#{@puzzle.image_url}", class: "lrg-image center-horizon"
+%>
 
 <div class="target-box hidden"></div>
 <div class="options hidden">
-<ul>
-<li><button type="submit" value="Morty's Face">Morty's Face</button></li>
-<li><button type="submit" value="Baby's Face">Baby's Face</button></li>
-</ul>
+  <ul>
+    <% @puzzle.characters.each do |character| %>
+    <li>
+      <button type="submit" value="<%= character.name %>">
+        <%= character.name %>
+      </button>
+    </li>
+    <% end %>
+  </ul>
+</div>
+<div class="form-container hidden">
+<form action="/scores" method="post" class="user-info-form">
+  <h3>YOUR SCORE:<span class="end-time"></span></h3>
+  <input type="text" id="name" name="name" placeholder="Your name..." />
+  <input type="hidden" id="end_time" name="end_time" value="0" />
+  <%= hidden_field_tag :puzzle_id, @puzzle.id %> 
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %> 
+  <button type="submit">Submit Score</button>
+</form>
 </div>

@@ -1,19 +1,23 @@
 class ScoresController < ApplicationController
-  def new
-    # this will be hit once the game is over
-    # the actual time will come in here
-    # @time = params[:time]
-    # a score will be initialized
-    #@score = Score.new
-  end
-
+  
   def create
-    # this will be hit when the user submits their name
-    # a Score will be added to the db
+    # this will be hit when the user submits their name in the views/puzzles/show
+    @puzzle_id = params[:puzzle_id]
+    @puzzle = Puzzle.find(params[:puzzle_id])
+    @score = @puzzle.scores.build(name: params[:name], score: params[:end_time])
+
+    if @score.save
+      flash[:success] = "Score saved"
+    else 
+      flash[:danger] = "Score not saved." 
+    end
+
+    redirect_to scores_path(:puzzle_id => @puzzle_id)
   end
 
   def index
-    # all of the scores will be returned that match a certain puzzle
-    # so query the db for the params[:puzzle_id]
+    @puzzle_id = params[:puzzle_id]
+    @puzzle = Puzzle.find(params[:puzzle_id])
+    @scores = Score.where(puzzle_id: @puzzle_id)
   end
 end

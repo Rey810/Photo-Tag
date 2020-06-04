@@ -2,9 +2,11 @@ let targetBox;
 let options;
 let img;
 let characterDataUrl = "http://localhost:3000/puzzles";
+let setNewTimeUrl = "http://localhost:3000/scores/new";
 let characterData;
 let characterFoundStatus;
-
+let timer;
+let currentTime = 0;
 // Rails uses turbolinks: intercepts link clicks and makes an ajax request. Replaces body with new content
 // This event is called turbolinks:load
 document.addEventListener("turbolinks:load", () => {
@@ -31,14 +33,7 @@ document.addEventListener("turbolinks:load", () => {
     });
 
     getCharacterPositions();
-
-    // //start timer
-    // let currTime = 0;
-    // let timer = setInterval(() => {
-    //   currTime += 1;
-    //   console.log(currTime);
-    // }, 1000);
-    // check chosen character and x, y points before sending to server
+    startTimer();
   }
 });
 
@@ -88,7 +83,16 @@ function checkSelection({
   function checkPoints(chosenArea, character) {
     const { topLeftX, topRightX, topLeftY, bottomLeftY } = { ...chosenArea };
     const { x_position, y_position, name } = { ...character };
-    console.log("x1", topLeftX, "x2", topRightX, "morty x", x_position);
+    console.log(
+      "x1",
+      topLeftX,
+      "x2",
+      topRightX,
+      "name",
+      name,
+      "at",
+      x_position
+    );
     // check if the selected points match the character position
     if (
       x_position > topLeftX &&
@@ -115,10 +119,36 @@ function checkGameOver() {
   if (characterData.every((character) => character.found === true)) endGame();
 }
 
-// stop the timer, send the score through and pop up the next modal
+// start the timer
+function startTimer() {
+  let timerDisplay = document.querySelector("#time");
+  timer = setInterval(() => {
+    //   currTime += 1;
+    currentTime += 1;
+    timerDisplay.textContent = `${currentTime}s`;
+  }, 1000);
+}
+// stop the timer
+function stopTimer() {
+  clearInterval(timer);
+}
+
+function showForm() {
+  let form = document.querySelector(".form-container");
+  form.classList.toggle("hidden");
+  // visible time score
+  let time = form.querySelector(".end-time");
+  time.textContent = `${currentTime}s`;
+
+  // hidden form value to be submitted to back-end
+  let endTime = form.querySelector("#end_time");
+  endTime.value = currentTime;
+}
+
+// stop the timer and pop up the next modal
 function endGame() {
-  let finalTime = stopTimer();
-  sendScore(finalTime);
+  stopTimer();
+  showForm();
 }
 
 function updateFoundStatus(characterName) {
