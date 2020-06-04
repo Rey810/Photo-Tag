@@ -1,8 +1,8 @@
 let targetBox;
 let options;
 let img;
-let characterDataUrl = "http://localhost:3000/puzzles";
-let setNewTimeUrl = "http://localhost:3000/scores/new";
+let characterDataUrl = "https://dry-hollows-66172.herokuapp.com/puzzles";
+let setNewTimeUrl = "https://dry-hollows-66172.herokuapp.com/scores/new";
 let characterData;
 let characterFoundStatus;
 let timer;
