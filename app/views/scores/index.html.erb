@@ -1,9 +1,12 @@
 <h1>Scores for <%= @puzzle.name %></h1>
 <section class="scores-container">
-  <ol>
+  <ol class="scores-list">
     <% @scores.each do |score| %>
     <li class="score-item">
-      <span><%= score.name %>: <%= score.score %>s</span>
+      <span
+        ><%= score.name %>:
+        <span><%= score.score %>s</span>
+      </span>
     </li>
     <%end%>
   </ol>

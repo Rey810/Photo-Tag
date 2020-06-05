@@ -5,3 +5,19 @@
   margin: 36px;
   padding: 24px;
 }
+
+.scores-list {
+  margin: 0 auto;
+  width: max-content;
+  padding: 72px;
+  li {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+  }
+  li:nth-child(odd) {
+    background: #ffffff;
+  }
+  li:nth-child(even) {
+    background: #80808030;
+  }
+}
