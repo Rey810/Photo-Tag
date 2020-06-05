@@ -30,8 +30,8 @@
     <h3>YOUR SCORE:<span class="end-time"></span></h3>
     <input type="text" id="name" name="name" placeholder="Your name..." />
     <input type="hidden" id="end_time" name="end_time" value="0" />
-    <%= hidden_field_tag :puzzle_id, @puzzle.id %> <%=
-    hidden_field_tag(:authenticity_token => form_authenticity_token ) %>
+    <%= hidden_field_tag :puzzle_id, @puzzle.id %> 
+    <%= hidden_field_tag :authenticity_token,form_authenticity_token %>
     <button type="submit">Submit Score</button>
   </form>
 </div>
