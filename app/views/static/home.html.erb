@@ -1,9 +1,29 @@
-<h1>Photo Tag</h1>
-<p>Choose a picture then find the characters as fast as possible!</p>
+<main class="transparent-bg">
+  <h1 class="no-margin-bottom">Photo Tag</h1>
+  <div class="instructions">
+    <h2>Instructions</h2>
+    <ol>
+      <li>Choose a picture</li>
+      <li>Find the characters as fast as possible!</li>
+    </ol>
+  </div>
 
-<section class="grid-1x2">
-  <% @puzzles.each do |puzzle| %>
-  <h2><%= puzzle.name %></h2>
-  <%= image_tag "/images/#{puzzle.image_url}", alt: "Rick's Lounge Image" %> <%=
-  link_to "Play", puzzle_path(puzzle.id) %> <% end %>
-</section>
+  <section class="grid-1x2">
+    <% @puzzles.each do |puzzle| %>
+    <div class="details">
+      <h2 class="no-margin-bottom"><%= puzzle.name %></h2>
+      <p class="padding-sides">
+        You know that Rick and Morty show? Ha, of course you do. Well let's play
+        a little game of wasting our time as we approach the inevitability of
+        our own deaths. Find the characters as quickly as you can so that you
+        can go back to your meaningless existence.
+      </p>
+      <div class="buttons-container">
+        <%= link_to "Play", puzzle_path(puzzle.id) %> <%= link_to "View Scores",
+        scores_path(:puzzle_id => puzzle.id) %>
+      </div>
+    </div>
+    <%= image_tag "/images/#{puzzle.image_url}", alt: "Rick's Lounge Image",
+    class: "small-img" %> <% end %>
+  </section>
+</main>

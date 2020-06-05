@@ -33,6 +33,7 @@ document.addEventListener("turbolinks:load", () => {
     });
 
     getCharacterPositions();
+    stopTimer();
     startTimer();
   }
 });
@@ -121,6 +122,7 @@ function checkGameOver() {
 
 // start the timer
 function startTimer() {
+  currentTime = 0;
   let timerDisplay = document.querySelector("#time");
   timer = setInterval(() => {
     //   currTime += 1;

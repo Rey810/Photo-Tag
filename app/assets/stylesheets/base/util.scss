@@ -1,5 +1,22 @@
 * {
-  outline: 1px solid red;
+  color: #333;
+}
+
+main {
+  padding: 12px 24px 24px 24px;
+}
+
+h1 {
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+h2 {
+}
+
+.transparent-bg {
+  background-color: transparent;
 }
 
 .full-screen {
@@ -25,7 +42,53 @@
   visibility: hidden;
 }
 
+.no-padding-top {
+  padding-top: 0;
+}
+
+.no-margin-top {
+  margin-top: 0;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0;
+}
+
+.padding-sides {
+  padding: 0 24px;
+}
+
+.small-img {
+  height: 250px;
+  width: 400px;
+}
+
 .lrg-image {
   height: 650px;
   width: 1080px;
 }
+
+// home page
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.buttons-container {
+  display: flex;
+  flex-direction: row;
+  a {
+    padding: 12px 24px;
+    background-color: #333;
+    color: rgba(255, 255, 255, 0.876);
+    text-decoration: none;
+    margin-right: 12px;
+    &:hover {
+      background-color: rgb(87, 85, 85);
+      color: rgba(255, 255, 255, 0.931);
+    }
+  }
+}
+
+// game in progress: controller - puzzle, view - show

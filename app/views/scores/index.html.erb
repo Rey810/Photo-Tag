@@ -1,10 +1,12 @@
-<h1>Scores for <%= @puzzle.name %>></h1>
-<ol>
-  <% @scores.each do |score| %>
-  <li class="score-item">
-    <span><%= score.name %>: <%= score.score %>s</span>
-  </li>
-  <%end%>
-</ol>
+<h1>Scores for <%= @puzzle.name %></h1>
+<section class="scores-container">
+  <ol>
+    <% @scores.each do |score| %>
+    <li class="score-item">
+      <span><%= score.name %>: <%= score.score %>s</span>
+    </li>
+    <%end%>
+  </ol>
+</section>
 
 <%= link_to "Home", root_path %>
