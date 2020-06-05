@@ -1,15 +1,18 @@
 <h1>Scores for <%= @puzzle.name %></h1>
+<div class="buttons-container top-left">
+  <%= link_to "Home", root_path %>
+</div>
 <section class="scores-container">
   <ol class="scores-list">
+    <div class="score-headers">
+      <h3 class="score-name-header">NAME</h3>
+      <h3 class="score-time-header">TIME</h3>
+    </div>
     <% @scores.each do |score| %>
     <li class="score-item">
-      <span
-        ><%= score.name %>:
-        <span><%= score.score %>s</span>
-      </span>
+      <span class="score-name"><%= score.name %>:</span>
+      <span class="score-score"><%= score.score %>s</span>
     </li>
     <%end%>
   </ol>
 </section>
-
-<%= link_to "Home", root_path %>

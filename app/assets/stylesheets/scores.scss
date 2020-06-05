@@ -7,12 +7,20 @@
 }
 
 .scores-list {
+  counter-reset: listCounter;
   margin: 0 auto;
   width: max-content;
   padding: 72px;
   li {
+    counter-increment: listCounter;
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 1fr 9fr 1fr;
+  }
+  li::before {
+    content: counter(listCounter) ". ";
+    margin: auto;
+    font-size: 1.3em;
+    font-weight: bold;
   }
   li:nth-child(odd) {
     background: #ffffff;
@@ -20,4 +28,28 @@
   li:nth-child(even) {
     background: #80808030;
   }
+}
+
+.score-name {
+  font-size: 1.3em;
+  margin: auto 0;
+}
+
+.score-score {
+  font-weight: bold;
+  font-weight: 1.3em;
+  margin: auto;
+}
+
+.score-headers {
+  display: grid;
+  grid-template-columns: 10fr 1fr;
+  h3 {
+    margin-bottom: 12px;
+  }
+}
+
+.score-name-header,
+.score-time-header {
+  margin: auto;
 }
